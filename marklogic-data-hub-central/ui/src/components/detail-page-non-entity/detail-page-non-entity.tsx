@@ -103,19 +103,13 @@ const DetailPageNonEntity = (props) => {
     </div>
         :
         props.contentType && props.contentType === 'json' ?
-        selected === 'instance' ? (<TableView document={props.isEntityInstance ? props.entityInstance : props.data} contentType={props.contentType} location={location.state ? location.state['id'] : {}} isEntityInstance={props.isEntityInstance} />) : (props.data && <JsonView document={props.data} />)
+        props.data && <pre>{JSON.stringify(props.data, undefined, 2)}</pre>
         : props.contentType === 'xml' ?
-          selected === 'instance' ? (<TableView document={props.isEntityInstance ? props.entityInstance : props.data} contentType={props.contentType} location={location.state ? location.state['id'] : {}} isEntityInstance={props.isEntityInstance} />) : (props.data && <XmlView document={props.xml} />)
+        props.xml && <pre>{props.xml}</pre>
         : <pre data-testid="text-container" className={styles.textContainer}>{props.data}</pre>
 
     const viewSelector = <div id='menu' className={styles.menu}>
-        <Menu id='subMenu' onClick={(event) => handleMenuSelect(event)} mode="horizontal" selectedKeys={[selected]}>
-            <Menu.Item key="instance" id='instance' data-testid="instance-view">
-                <MLTooltip title={'Show the processed data'}>
-                    <Icon type="file-search" className={styles.fileSearchIcon} />
-                    <span className={styles.subMenu}>Instance</span>
-                </MLTooltip>
-            </Menu.Item>
+        <Menu id='subMenu' onClick={(event) => handleMenuSelect(event)} mode="horizontal" selectedKeys={['record']}>
             <Menu.Item key="record" id='record' data-testid="record-view">
                 <MLTooltip title={'Show the complete record'} >
                     <FontAwesomeIcon icon={faCode} size="lg" />
