@@ -206,13 +206,10 @@ const SourceToEntityMap = (props) => {
 
   //To handle navigation buttons
   const onNavigateURIList = (index) => {
-    const end = props.docUris.length - 1;
-    if (index >= 0 && index <= end) {
-      onUpdateURINavButtons(props.docUris[index]).then(() => {
-        setUriIndex(index);
-        setSrcURI(props.docUris[index]);
-      });
-    }
+    onUpdateURINavButtons(props.docUris[index]).then(() => {
+      setUriIndex(index);
+      setSrcURI(props.docUris[index]);
+    });
   };
   const onUpdateURINavButtons = async (uri) => {
     await props.fetchSrcDocFromUri(props.mapData.name, uri, props.mapIndex);
