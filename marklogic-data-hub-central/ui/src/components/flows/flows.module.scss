@@ -112,51 +112,33 @@
             display: flex;
             flex: 1;
             flex-direction: row;
-
+            .reorderRight, .reorderLeft {
+                display: flex;
+                flex: 1;
+                flex-direction: row;
+                font-size: 20px;
+            }
             .reorderRight {
-                display: flex;
-                flex: 1;
-                flex-direction: row;
                 justify-content: flex-end;
-                font-size: 20px;
             }
-            
             .reorderLeft {
-                display: flex;
-                flex: 1;
-                flex-direction: row;
                 justify-content: flex-start;
-                font-size: 20px;
             }
-            
-            .reorderFlowRight {
+            .reorderFlowRight, .reorderFlowLeft {
                 display: inline-block;
                 color: #777777;
                 font-size: 21px;
                 cursor: pointer;
+            }
+            .reorderFlowRight {
+                margin-top: 1px;
                 margin-right: 12px;
             }
-        
             .reorderFlowLeft {
-                display: inline-block;
-                color: #777777;
-                font-size: 21px;
-                cursor: pointer;
                 margin-left: 12px;
             }
-
-            .reorderFlowLeft:hover {
-                display: inline-block;
+            .reorderFlowRight:hover, .reorderFlowLeft:hover {
                 color: #7FADE3;
-                font-size: 21px;
-                cursor: pointer;
-            }
-
-            .reorderFlowRight:hover {
-                display: inline-block;
-                color: #7FADE3;
-                font-size: 21px;
-                cursor: pointer;
             }
         }   
 
@@ -189,7 +171,7 @@
                 margin-top: -3px;
                 margin-right: 10px;
             }
-            .loadStepName {
+            .loadStepName, .name {
                 display: inline-block;
                 padding-top: 5px;
                 width: 80%;
@@ -198,13 +180,8 @@
                 text-overflow: ellipsis;
             }
             .name {
-                display: inline-block;
                 margin-right: 10px;
-                padding-top: 5px;
                 width: 100%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
             }
             .cardLinks {
                 position: absolute;
