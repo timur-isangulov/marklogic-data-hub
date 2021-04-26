@@ -782,13 +782,6 @@ const EntityMapTable: React.FC<Props> = (props) => {
           let renderOutput = getRenderOutput(textToSearchInto, valueToDisplay, "name", searchedEntityColumn, searchEntityText, row.key);
           renderText =
             <span> {row.joinPropertyName && row.relatedEntityType ? <i>{renderOutput}</i> : renderOutput}
-              {row.joinPropertyName && row.relatedEntityType &&
-                <span>
-                  <MLTooltip title={"Foreign Key Relationship"}>
-                    <FontAwesomeIcon className={styles.foreignKeyIcon} icon={faKey} data-testid={"foreign-key-" + text} />
-                  </MLTooltip>
-                </span>
-              }
               {row.key > 100 && row.type.includes("[ ]") &&
                 <span>
                   <MLTooltip title={"Multiple"}>
@@ -816,14 +809,26 @@ const EntityMapTable: React.FC<Props> = (props) => {
       width: "15%",
       sorter: (a: any, b: any) => getEntityDataType(a.type).localeCompare(getEntityDataType(b.type)),
       render: (text, row, index) => {
+        let renderText = text;
         const expanded = text.startsWith("parent-");
         const dType = expanded ? text.slice(text.indexOf("-") + 1) : text;
+        if (row.joinPropertyName && row.relatedEntityType) {
+          let relatedEntityName = row.relatedEntityType.split("/").pop();
+          let tooltip = <span>This property establishes a foreign key relationship with the <b>{relatedEntityName}</b> entity through the <b>{row.joinPropertyName}</b> property ({text}). The value of this property and the <b>{row.joinPropertyName}</b> property in <b>{relatedEntityName}</b> should be identical.</span>;
+          renderText =
+          <span>
+            {renderText = renderText.concat(" (" + relatedEntityName + ")")}
+            <MLTooltip title={tooltip} id={"tooltip-" + row.name} >
+              <FontAwesomeIcon className={styles.foreignKeyIcon} icon={faKey} data-testid={"foreign-" + row.name}/>
+            </MLTooltip>
+          </span>;
+        }
         return {
           children: <div className={styles.typeContainer}>
             {expanded ? <div className={styles.typeContextContainer}><span className={styles.typeContext}>Context</span>&nbsp;<Popover
               content={contextHelp}
               trigger="click"
-              placement="right"><Icon type="question-circle" className={styles.questionCircle} theme="filled" /></Popover><p className={styles.typeText}>{dType}</p></div> : text}
+              placement="right"><Icon type="question-circle" className={styles.questionCircle} theme="filled" /></Popover><p className={styles.typeText}>{dType}</p></div> : renderText}
           </div>, props: (row.key <= 100 && index === 0) ? {colSpan: 0} : {colSpan: 1}
         };
       }
