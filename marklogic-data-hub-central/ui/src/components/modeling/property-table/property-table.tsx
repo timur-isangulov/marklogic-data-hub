@@ -154,7 +154,7 @@ const PropertyTable: React.FC<Props> = (props) => {
       render: (text, record) => {
         let renderText = text;
         if (record.joinPropertyName && record.joinPropertyType) {
-          let tooltip = <span>This property establishes a foreign key relationship with the <b>{record.joinPropertyType}</b> entity through the <b>{record.joinPropertyName}</b> property ({text}). The value of this property and the <b>{record.joinPropertyName}</b> property in <b>{record.joinPropertyType}</b> should be identical.</span>;
+          let tooltip = ModelingTooltips.foreignKey(record.joinPropertyType, record.joinPropertyName, text);
           renderText =
           <span>
             {renderText = renderText.concat(" (" + record.joinPropertyType + ")")}

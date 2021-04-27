@@ -13,6 +13,7 @@ import {faKey, faLayerGroup} from "@fortawesome/free-solid-svg-icons";
 import arrayIcon from "../../../../assets/icon_array.png";
 import {css} from "@emotion/css";
 import {getParentKey, getKeys, deepCopy} from "../../../../util/data-conversion";
+import {ModelingTooltips} from "../../../../config/tooltips.config";
 
 
 interface Props {
@@ -814,7 +815,7 @@ const EntityMapTable: React.FC<Props> = (props) => {
         const dType = expanded ? text.slice(text.indexOf("-") + 1) : text;
         if (row.joinPropertyName && row.relatedEntityType) {
           let relatedEntityName = row.relatedEntityType.split("/").pop();
-          let tooltip = <span>This property establishes a foreign key relationship with the <b>{relatedEntityName}</b> entity through the <b>{row.joinPropertyName}</b> property ({text}). The value of this property and the <b>{row.joinPropertyName}</b> property in <b>{relatedEntityName}</b> should be identical.</span>;
+          let tooltip = ModelingTooltips.foreignKey(relatedEntityName, row.joinPropertyName, text);
           renderText =
           <span>
             {renderText = renderText.concat(" (" + relatedEntityName + ")")}
